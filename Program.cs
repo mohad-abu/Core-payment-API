@@ -34,6 +34,7 @@ builder.Services.AddAuthentication(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
+
 builder.Services.AddOpenApi();
 
 // Register the repository for DI
@@ -51,6 +52,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
 // Use CORS
 app.UseCors("AllowAll");
 // Ensure database is created after app is built
