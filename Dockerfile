@@ -2,20 +2,22 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-# Copy all files and restore dependencies
+# Copy everything
 COPY . ./
-RUN dotnet restore
+
+# Restore only the specific project
+RUN dotnet restore "MerchantService/MerchantService.csproj"
 
 # Build and publish the app
-RUN dotnet publish -c Release -o out
+RUN dotnet publish "MerchantService/MerchantService.csproj" -c Release -o /app/out
 
 # Stage 2: Run the application
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out .
 
-# Expose the port Render expects
+# Expose the Render expected port
 EXPOSE 8080
 
-# Start the application
+# Start the app
 ENTRYPOINT ["dotnet", "MerchantService.dll"]
