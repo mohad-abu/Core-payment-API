@@ -2,13 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-# Copy everything
-COPY . ./
-
-# Restore only the specific project
+# Copy csproj and restore as distinct layers
+COPY ["NewRepo/MerchantService.csproj", "./"]
 RUN dotnet restore "NewRepo/MerchantService.csproj"
 
-# Build and publish the app
+# Copy everything else and build
+COPY . ./
 RUN dotnet publish "NewRepo/MerchantService.csproj" -c Release -o /app/out
 
 # Stage 2: Run the application
