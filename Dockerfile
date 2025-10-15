@@ -8,7 +8,7 @@ RUN dotnet restore "MerchantService.csproj"
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish "NewRepo/MerchantService.csproj" -c Release -o /app/out
+RUN dotnet publish "MerchantService.csproj" -c Release -o /app/out
 
 # Stage 2: Run the application
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
