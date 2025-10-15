@@ -3,8 +3,8 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY ["NewRepo/MerchantService.csproj", "./"]
-RUN dotnet restore "NewRepo/MerchantService.csproj"
+COPY ["MerchantService.csproj", "./"]
+RUN dotnet restore "MerchantService.csproj"
 
 # Copy everything else and build
 COPY . ./
