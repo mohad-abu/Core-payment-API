@@ -6,10 +6,10 @@ WORKDIR /app
 COPY . ./
 
 # Restore only the specific project
-RUN dotnet restore "Core-payment-API/MerchantService.csproj"
+RUN dotnet restore "NewRepo/MerchantService.csproj"
 
 # Build and publish the app
-RUN dotnet publish "Core-payment-API/MerchantService.csproj" -c Release -o /app/out
+RUN dotnet publish "NewRepo/MerchantService.csproj" -c Release -o /app/out
 
 # Stage 2: Run the application
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
